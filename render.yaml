@@ -1,0 +1,33 @@
+# Render Blueprint — PayRoll API backend
+# Docs: https://render.com/docs/blueprint-spec
+# Guide: docs/DEPLOYMENT.md
+
+services:
+  - type: web
+    name: payroll-api
+    runtime: node
+    region: oregon
+    plan: free
+    rootDir: projects/payroll-api
+    buildCommand: npm ci && npm run render:build
+    startCommand: npm run render:start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: payroll-db
+          property: connectionString
+      - key: FRONTEND_ORIGIN
+        sync: false
+      - key: X402_DEV_BYPASS
+        value: "false"
+
+databases:
+  - name: payroll-db
+    plan: free
+    databaseName: payroll
+    user: payroll

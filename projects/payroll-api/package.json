@@ -1,0 +1,46 @@
+{
+  "name": "payroll-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.0"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio",
+    "db:seed": "tsx prisma/seed.ts",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "check-types": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
+    "render:build": "prisma generate && npm run build",
+    "render:start": "prisma db push && npm start"
+  },
+  "dependencies": {
+    "algosdk": "^3.5.2",
+    "cors": "latest",
+    "express": "latest",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.1.1",
+    "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.19.3",
+    "@types/cors": "latest",
+    "@types/express": "latest",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.1.0",
+    "@types/node": "latest",
+    "prisma": "^6.19.3",
+    "tsx": "latest",
+    "typescript": "latest",
+    "supertest": "^7.1.0",
+    "@types/supertest": "^6.0.3",
+    "vitest": "^2.1.8"
+  }
+}

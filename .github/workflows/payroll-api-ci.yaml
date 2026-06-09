@@ -1,0 +1,41 @@
+name: Validate payroll-api
+
+on:
+  workflow_call:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+          cache-dependency-path: 'projects/payroll-api/package-lock.json'
+
+      - name: Install dependencies
+        working-directory: projects/payroll-api
+        run: npm ci
+
+      - name: Generate Prisma client
+        working-directory: projects/payroll-api
+        run: npx prisma generate
+
+      - name: Type-check
+        working-directory: projects/payroll-api
+        run: npm run check-types
+
+      - name: Build
+        working-directory: projects/payroll-api
+        run: npm run build
+
+      - name: Run tests
+        working-directory: projects/payroll-api
+        env:
+          JWT_SECRET: ci-test-secret
+          X402_DEV_BYPASS: 'true'
+        run: npm run test
