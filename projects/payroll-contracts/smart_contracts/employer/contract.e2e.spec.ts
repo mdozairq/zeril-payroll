@@ -151,7 +151,7 @@ describe('Employer payroll contract', () => {
 
     // Pay employee
     await client.send.payEmployee({
-      args: { employee: emp1.addr.toString() },
+      args: { employee: emp1.addr.toString() } as any,
       populateAppCallResources: true,
       maxFee: (3000).microAlgo(),
       coverAppCallInnerTransactionFees: true,
@@ -203,7 +203,7 @@ describe('Employer payroll contract', () => {
 
     await expect(
       client.send.payEmployee({
-        args: { employee: emp1.addr.toString() },
+        args: { employee: emp1.addr.toString() } as any,
         populateAppCallResources: true,
         maxFee: (3000).microAlgo(),
       coverAppCallInnerTransactionFees: true,
